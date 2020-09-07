@@ -1,0 +1,40 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+_public_hdrs = [
+    "include/boost/*.hpp",
+    "include/boost/compute/*.hpp",
+    "include/boost/compute/algorithm/*.hpp",
+    "include/boost/compute/allocator/*.hpp",
+    "include/boost/compute/async/*.hpp",
+    "include/boost/compute/container/*.hpp",
+    "include/boost/compute/exception/*.hpp",
+    "include/boost/compute/experimental/*.hpp",
+    "include/boost/compute/functional/*.hpp",
+    "include/boost/compute/image/*.hpp",
+    "include/boost/compute/interop/*.hpp",
+    "include/boost/compute/interop/eigen/*.hpp",
+    "include/boost/compute/interop/opencv/*.hpp",
+    "include/boost/compute/interop/opengl/*.hpp",
+    "include/boost/compute/interop/qt/*.hpp",
+    "include/boost/compute/interop/vtk/*.hpp",
+    "include/boost/compute/iterator/*.hpp",
+    "include/boost/compute/lambda/*.hpp",
+    "include/boost/compute/memory/*.hpp",
+    "include/boost/compute/random/*.hpp",
+    "include/boost/compute/type_traits/*.hpp",
+    "include/boost/compute/types/*.hpp",
+    "include/boost/compute/utility/*.hpp",
+]
+
+cc_library(
+    name = "compute_internal",
+    hdrs = glob(["include/boost/**/*.hpp"], exclude = _public_hdrs),
+)
+
+cc_library(
+    name = "compute",
+    visibility = ["//visibility:public"],
+    includes = ["include"],
+    hdrs = glob(_public_hdrs),
+    deps = [":compute_internal"],
+)

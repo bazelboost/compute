@@ -12,3 +12,6 @@ bin/
 doc/bin/
 doc/html/
 doc/autodoc.xml
+
+# bazel directories
+/bazel-*
